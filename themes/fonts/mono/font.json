@@ -1,0 +1,8 @@
+{
+ "description": "DejaVu Sans Mono Bold, 13 px, fixed 12-px cells",
+ "ttf": "DejaVuSansMono-Bold.ttf",
+ "size": 13,
+ "baseline": 13,
+ "monospace": true,
+ "license": "Bitstream Vera / DejaVu (free, embeddable)"
+}

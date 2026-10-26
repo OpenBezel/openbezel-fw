@@ -1,0 +1,81 @@
+# Français - see en.txt for the keys and the length limits.  Needs a native speaker's review.
+@mccs = 03
+LANG_NAME = Français
+
+T_SETTINGS = Paramètres
+T_PICTURE = Image
+T_DISPLAY = Affichage
+T_OSD = Menu
+T_SYSTEM = Système
+T_INFO = Informations
+T_EXIT = Quitter
+
+I_PICMODE = Mode image
+I_BRIGHTNESS = Luminosité
+I_CONTRAST = Contraste
+I_CTEMP = Temp. couleur
+I_RGAIN = Gain rouge
+I_GGAIN = Gain vert
+I_BGAIN = Gain bleu
+I_LOWBLUE = Filtre bleu
+I_SATURATION = Saturation
+I_SHARPNESS = Netteté
+I_BACK = Retour
+I_INPUT = Entrée
+I_IDITHER = Tramage entrée
+I_DDITHER = Tramage écran
+I_SCALING = Mise à l'échelle
+I_WDBLANK = Coupure WD
+I_MODEPOPUP = Fenêtre mode
+I_LANGUAGE = Langue
+I_MENUTIME = Durée menu
+I_THEME = Thème
+I_MENUSIZE = Taille menu
+I_SLIDER = Curseur
+I_HPOS = Position H
+I_VPOS = Position V
+I_DEBUG = Console debug
+I_RESET = Réinitialiser
+I_MUTE = Muet
+I_BOOTLOGO = Logo démarrage
+I_BACKLIGHT = Rétroéclairage
+I_BLLEVEL = Niveau éclairage
+I_DCR = Contraste dyn.
+I_POWERSAVE = Économie énergie
+I_KEYREPEAT = Répétition
+
+V_ON = Activé
+V_OFF = Désactivé
+V_COOL = Froid
+V_WARM = Chaud
+V_USER = Utilisateur
+V_CUSTOM = Perso.
+V_STANDARD = Standard
+V_MOVIE = Film
+V_GAME = Jeu
+V_TEXT = Texte
+V_FULL = Plein écran
+V_FIT = Ajusté
+V_SLOW = Lente
+V_FAST = Rapide
+V_PREF_HDMI = Préf. HDMI
+V_PREF_USBC = Préf. USB-C
+V_INROW = Dans la ligne
+V_POPUP = Fenêtre
+V_CONFIRM = Encore ENTER
+V_LOW = Faible
+V_MEDIUM = Moyen
+V_HIGH = Élevé
+
+IL_INPUT = Entrée
+IL_CLOCK = Fréq. pixel
+IL_FIRMWARE = Logiciel
+IL_THEME = Thème
+IL_USAGE = Utilisation
+IL_HFREQ = Fréq. H
+IV_NOSIGNAL = (pas de signal)
+
+MSG_NOSIGNAL = Pas de signal
+MSG_INPUT = Entrée :
+
+HINT = UP/DN choix  ENTER ok  PWR fin

@@ -1,0 +1,12 @@
+{
+ "description": "No borders, thin line dividers, solid selection bar",
+ "panel_border": "none",
+ "border_width": 0,
+ "header": "solid",
+ "divider": "line",
+ "divider_width": 2,
+ "selection": "bar",
+ "alpha": 0,
+ "icon_select": "left",
+ "icon_strip": false
+}

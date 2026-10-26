@@ -1,0 +1,12 @@
+{
+ "description": "Raised 3D panel, sunken selection, bevelled dividers",
+ "panel_border": "bevel",
+ "border_width": 3,
+ "header": "solid",
+ "divider": "bevel",
+ "divider_width": 2,
+ "selection": "sunken",
+ "alpha": 0,
+ "icon_select": "frame",
+ "icon_strip": false
+}

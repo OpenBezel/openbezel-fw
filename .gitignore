@@ -1,0 +1,15 @@
+/build/
+__pycache__/
+*.pyc
+*.ihx
+*.rel
+*.lst
+*.sym
+*.asm
+*.mem
+*.map
+*.lk
+*.rst
+*.orig
+*.rej
+*~

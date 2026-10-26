@@ -1,0 +1,8 @@
+{
+ "description": "Green on black, outline icons",
+ "icons": "line",
+ "colors": "terminal",
+ "layout": "vertical",
+ "frame": "double",
+ "font": "mono"
+}

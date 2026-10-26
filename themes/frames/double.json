@@ -1,0 +1,12 @@
+{
+ "description": "Double line border, line dividers, outlined selection",
+ "panel_border": "double",
+ "border_width": 2,
+ "header": "solid",
+ "divider": "line",
+ "divider_width": 2,
+ "selection": "outline",
+ "alpha": 0,
+ "icon_select": "brackets",
+ "icon_strip": false
+}

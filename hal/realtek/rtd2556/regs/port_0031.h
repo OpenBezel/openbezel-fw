@@ -1,0 +1,10 @@
+/* RTD2556 keyhole: FIFO window (index 0030, data 0031) */
+#ifndef RTD2556_REGS_PORT_0031_H
+#define RTD2556_REGS_PORT_0031_H
+
+#define FW_DISPLAY_READ_WID_BSU_H   0x00
+#define FW_DISPLAY_READ_WID_BSU_L   0x01
+
+#define FW_DISPLAY_READ_WID_BSU_H_2 0x20
+
+#endif /* RTD2556_REGS_PORT_0031_H */

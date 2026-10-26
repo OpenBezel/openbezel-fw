@@ -1,0 +1,76 @@
+{
+ "_comment": [
+  "The EDID OpenBezel serves on this board (Kconfig: EDID > OpenBezel), built by tools/gen_edid.py.",
+  "vendor: a 3-letter PNP ID.  OBZ is not a registered ID - change it if you have one.",
+  "Modes: the input timings hdmi_rx.c's mode table has capture profiles for, minus 1600x900",
+  "(its CVT-RB row shows a blocky, jittery picture).",
+  "Color: RGB 4:4:4 only (no YCbCr, no deep color) - what the receiver supports."
+ ],
+ "edid_version": "1.3",
+ "vendor": "OBZ",
+ "product": 5376,
+ "serial": 0,
+ "year": 2026,
+ "week": 0,
+ "name": "OpenBezel",
+ "bpc": 8,
+ "interface": "HDMI-a",
+ "size_mm": [344, 194],
+ "gamma": 2.2,
+ "dpms": ["standby", "suspend", "off"],
+ "srgb": true,
+ "chromaticity": {
+  "red": [0.640, 0.330],
+  "green": [0.300, 0.600],
+  "blue": [0.150, 0.060],
+  "white": [0.3127, 0.3290]
+ },
+ "established": ["640x480@60", "800x600@60", "1024x768@60"],
+ "standard": ["1280x800@60", "1280x1024@60", "1440x900@60"],
+ "preferred": {
+  "_comment": "1920x1080p60, CTA VIC 16: the panel's native mode",
+  "pixel_khz": 148500,
+  "h": [1920, 88, 44, 148],
+  "v": [1080, 4, 5, 36],
+  "hsync": "+",
+  "vsync": "+"
+ },
+ "range": {
+  "v_hz": [23, 61],
+  "h_khz": [26, 68],
+  "max_mhz": 150
+ },
+ "cta": {
+  "vics": [16, 31, 32, 4, 19, 17, 18, 2, 3, 1],
+  "native_dtds": 1,
+  "underscan": 1,
+  "audio": {
+   "lpcm": {
+    "channels": 2,
+    "rates_khz": [32, 44.1, 48],
+    "bits": [16, 20, 24]
+   }
+  },
+  "speakers": ["FL/FR"],
+  "hdmi": {
+   "physical_address": "1.0.0.0",
+   "max_tmds_mhz": 165
+  },
+  "video_capability": {
+   "qy": 0,
+   "qs": 1,
+   "s_it": 2,
+   "s_ce": 2
+  },
+  "detailed": [
+   {
+    "_comment": "1680x1050p60 CVT reduced blanking (the mode table has RB, not DMT's normal blanking)",
+    "pixel_khz": 119000,
+    "h": [1680, 48, 32, 80],
+    "v": [1050, 3, 6, 21],
+    "hsync": "+",
+    "vsync": "-"
+   }
+  ]
+ }
+}

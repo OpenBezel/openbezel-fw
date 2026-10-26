@@ -1,0 +1,40 @@
+#!/bin/sh
+# Run a command in the OpenBezel build container (docker/Dockerfile), building the image
+# first if the Dockerfile changed.  The repository is mounted at its own path and the
+# command runs as you, so build directories are usable from both sides.
+#
+#   tools/docker-run meson setup build
+#   tools/docker-run ninja -C build
+#   tools/docker-run ninja -C build menuconfig     (guiconfig needs an X server: DISPLAY)
+#   tools/docker-run ninja -C build flash          (the host's /dev/i2c-* are passed in)
+#
+# OB_DOCKER=podman to use podman.
+set -e
+DOCKER=${OB_DOCKER:-docker}
+REPO=$(cd "$(dirname "$0")/.." && pwd -P)
+HERE=$(pwd -P)
+case "$HERE/" in
+    "$REPO"/*) ;;
+    *) echo "docker-run: run it from inside $REPO (only the repository is mounted)" >&2; exit 2 ;;
+esac
+TAG=$(sha256sum "$REPO/docker/Dockerfile" | cut -c1-12)
+IMAGE=openbezel-build:$TAG
+
+if ! $DOCKER image inspect "$IMAGE" >/dev/null 2>&1; then
+    echo "docker-run: building $IMAGE" >&2
+    $DOCKER build -t "$IMAGE" "$REPO/docker" >&2
+fi
+
+set -- --rm -v "$REPO:$REPO" -w "$HERE" --user "$(id -u):$(id -g)" --init "$IMAGE" "$@"
+if [ -t 0 ] && [ -t 1 ]; then
+    set -- -it "$@"
+fi
+for d in /dev/i2c-*; do                       # flashing / DDC tools
+    [ -e "$d" ] && set -- --device "$d" --group-add "$(stat -c %g "$d")" "$@"
+done
+if [ -n "$DISPLAY" ] && [ -d /tmp/.X11-unix ]; then   # guiconfig, osdsim GUI
+    set -- -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro "$@"
+fi
+[ -n "$RTD_I2C_BUS" ] && set -- -e RTD_I2C_BUS "$@"
+[ -n "$RTD_DB_ROOT" ] && set -- -e RTD_DB_ROOT -v "$RTD_DB_ROOT:$RTD_DB_ROOT:ro" "$@"
+exec $DOCKER run "$@"

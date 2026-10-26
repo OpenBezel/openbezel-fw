@@ -1,0 +1,6 @@
+option('defconfig', type: 'string', value: 'intouch156b_defconfig',
+       description: 'configs/ file that seeds .config in a new build directory')
+option('rtd_db_root', type: 'string', value: '',
+       description: 'vendor RTDTool register DBs for ninja regs-full (default: RTD_DB_ROOT / ~/Downloads/Display/RTDScaler)')
+option('i2c_bus', type: 'string', value: '',
+       description: 'I2C bus of the monitor for ninja flash (default: RTD_I2C_BUS / rtdflash default)')

@@ -1,0 +1,14 @@
+{
+ "description": "Rounded panel with a drop shadow, gradient header, rounded selection bar",
+ "panel_border": "shadow",
+ "border_width": 6,
+ "header": "gradient",
+ "divider": "none",
+ "divider_width": 0,
+ "selection": "bar",
+ "alpha": 4,
+ "icon_select": "frame",
+ "icon_strip": false,
+ "corner_radius": 16,
+ "rounded_selection": true
+}

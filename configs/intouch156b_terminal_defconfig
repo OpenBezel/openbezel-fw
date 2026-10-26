@@ -1,0 +1,12 @@
+# inTouch 15.6", terminal theme only (green monospace), English only, no picture extras.
+CONFIG_BOARD_INTOUCH156B=y
+# CONFIG_THEME_MIDNIGHT is not set
+# CONFIG_THEME_CLASSIC is not set
+# CONFIG_THEME_MINIMAL is not set
+CONFIG_THEME_TERMINAL=y
+# CONFIG_LANG_DE is not set
+# CONFIG_LANG_FR is not set
+# CONFIG_LANG_ES is not set
+# CONFIG_LANG_IT is not set
+# CONFIG_FEATURE_PICTURE_MODES is not set
+# CONFIG_FEATURE_DCR is not set

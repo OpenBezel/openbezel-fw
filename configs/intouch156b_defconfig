@@ -1,0 +1,4 @@
+# inTouch 15.6" with the defaults: midnight theme, all languages, every feature.
+# `meson setup build` seeds build/.config from this; `ninja -C build menuconfig`
+# changes it; `ninja -C build savedefconfig` writes the minimal form back out.
+CONFIG_BOARD_INTOUCH156B=y

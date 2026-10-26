@@ -1,0 +1,16 @@
+/* RTD2556 keyhole: scale factor (index 0033, data 0034) */
+#ifndef RTD2556_REGS_PORT_0034_H
+#define RTD2556_REGS_PORT_0034_H
+
+#define SF_HOR_SCALE_FACTOR_H    0x00
+#define SF_HOR_SCALE_FACTOR_M    0x01
+#define SF_VER_SCALE_FACTOR_H    0x03
+#define SF_HOR_FILTER_COEF_INI   0x10
+#define SF_VER_FILTER_COEF_INI   0x11
+
+#define SF_HOR_SCALE_FACTOR_H_2  0x20
+#define SF_VER_SCALE_FACTOR_H_2  0x23
+#define SF_HOR_FILTER_COEF_INI_2 0x30
+#define SF_VER_FILTER_COEF_INI_2 0x31
+
+#endif /* RTD2556_REGS_PORT_0034_H */

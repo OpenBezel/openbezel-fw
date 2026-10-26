@@ -1,0 +1,7 @@
+{
+ "description": "Dark, vertical icon sidebar, rounded corners",
+ "icons": "flat",
+ "colors": "midnight",
+ "layout": "vertical",
+ "frame": "rounded"
+}

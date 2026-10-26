@@ -1,0 +1,12 @@
+{
+ "description": "Drop shadow, gradient header, selection bar, slightly translucent",
+ "panel_border": "shadow",
+ "border_width": 8,
+ "header": "gradient",
+ "divider": "none",
+ "divider_width": 0,
+ "selection": "bar",
+ "alpha": 4,
+ "icon_select": "frame",
+ "icon_strip": false
+}

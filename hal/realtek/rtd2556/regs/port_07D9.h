@@ -1,0 +1,9 @@
+/* RTD2556 keyhole: DCR (index 07D8, data 07D9) */
+#ifndef RTD2556_REGS_PORT_07D9_H
+#define RTD2556_REGS_PORT_07D9_H
+
+#define DCR_THESHOLD1_1     0x00
+#define DCR_ABOVE_TH1_NUM_2 0x02
+#define DCR_ABOVE_TH1_VAL_4 0x05
+
+#endif /* RTD2556_REGS_PORT_07D9_H */

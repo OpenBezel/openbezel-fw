@@ -1,0 +1,7 @@
+{
+ "description": "Light, outline icons, thin lines",
+ "icons": "line",
+ "colors": "light",
+ "layout": "horizontal",
+ "frame": "outline"
+}

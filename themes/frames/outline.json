@@ -1,0 +1,12 @@
+{
+ "description": "Thin outline border and dividers, outlined selection",
+ "panel_border": "line",
+ "border_width": 2,
+ "header": "solid",
+ "divider": "line",
+ "divider_width": 1,
+ "selection": "outline",
+ "alpha": 0,
+ "icon_select": "frame",
+ "icon_strip": false
+}

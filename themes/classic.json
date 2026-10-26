@@ -1,0 +1,7 @@
+{
+ "description": "Stock-like: blue header with an icon row",
+ "icons": "flat",
+ "colors": "classic",
+ "layout": "horizontal",
+ "frame": "bevel"
+}

@@ -1,0 +1,466 @@
+mainmenu "OpenBezel firmware configuration"
+
+# Edit with `ninja -C build menuconfig` (or guiconfig); start from a configs/*_defconfig
+# (`meson setup build -Ddefconfig=...`).  Symbols reach the firmware as CONFIG_* in
+# config.h (y = 1, n = undefined) and the build (meson.build) through .config.
+
+menu "Board"
+
+choice
+	prompt "Board"
+	default BOARD_INTOUCH156B
+
+config BOARD_INTOUCH156B
+	bool "inTouch 15.6\" (Realtek RTD2556: eDP 1920x1080, HDMI + USB-C)"
+	select CHIP_RTD2556
+
+endchoice
+
+config BOARD
+	string
+	default "intouch156b" if BOARD_INTOUCH156B
+
+config CHIP_RTD2556
+	bool
+
+config CHIP
+	string
+	default "rtd2556" if CHIP_RTD2556
+
+comment "Gamma presets: out = in ^ (preset / native) per channel - panel native gamma x 100 - equal = neutral"
+
+config PANEL_GAMMA_R
+	int "Red"
+	range 100 400
+	default 213 if BOARD_INTOUCH156B
+	default 220
+
+config PANEL_GAMMA_G
+	int "Green"
+	range 100 400
+	default 213 if BOARD_INTOUCH156B
+	default 220
+
+config PANEL_GAMMA_B
+	int "Blue"
+	range 100 400
+	default 213 if BOARD_INTOUCH156B
+	default 220
+
+choice
+	prompt "EDID"
+	default EDID_OPENBEZEL
+	help
+	  What the monitor tells sources about itself (I2C 0x50 on HDMI,
+	  I2C-over-AUX on DisplayPort).
+
+config EDID_OPENBEZEL
+	bool "OpenBezel (generated from boards/<board>/edid.json)"
+	help
+	  Built by tools/gen_edid.py from the board's description: the modes
+	  the input can actually capture, RGB only, 2-channel audio.  Checked
+	  with edid-decode --check when it is installed.
+
+config EDID_STOCK
+	bool "the board's stock EDID (boards/<board>/edid.bin)"
+	help
+	  The EDID the original firmware served.  It advertises modes and
+	  color formats the OpenBezel input does not handle.
+
+config EDID_CUSTOM
+	bool "a custom EDID binary"
+
+endchoice
+
+config EDID_FILE
+	string "EDID binary"
+	depends on EDID_CUSTOM
+	default ""
+	help
+	  Path to a 128- or 256-byte EDID.  Checksums are recomputed.
+
+config EDID_NO_DEEP_COLOR
+	bool "Clear the HDMI deep-color flags"
+	depends on !EDID_OPENBEZEL
+	default y
+	help
+	  The receiver has no deep-color (30/36/48-bit) path: with these flags
+	  set a GPU may send 10 bpc and the picture breaks.
+
+endmenu
+
+menu "Menu themes"
+
+comment "Every theme built in is selectable in the menu (OSD > Theme); each costs asset-partition space"
+
+config THEME_MIDNIGHT
+	bool "midnight - dark, vertical icon sidebar, rounded corners"
+	default y
+
+config THEME_CLASSIC
+	bool "classic - horizontal icons, bevelled frame"
+	default y
+
+config THEME_MINIMAL
+	bool "minimal - light, line icons, outlined"
+	default y
+
+config THEME_TERMINAL
+	bool "terminal - green on black, monospace"
+	default y
+
+config THEME_CUSTOM
+	bool "custom - pick every part below"
+	help
+	  A theme assembled from parts: icons, colors (optionally with any
+	  color replaced), layout, frame and font.
+
+choice
+	prompt "Default theme"
+	default THEME_DEFAULT_MIDNIGHT if THEME_MIDNIGHT
+	default THEME_DEFAULT_CLASSIC if THEME_CLASSIC
+	default THEME_DEFAULT_MINIMAL if THEME_MINIMAL
+	default THEME_DEFAULT_TERMINAL if THEME_TERMINAL
+	default THEME_DEFAULT_CUSTOM
+
+config THEME_DEFAULT_MIDNIGHT
+	bool "midnight"
+	depends on THEME_MIDNIGHT
+config THEME_DEFAULT_CLASSIC
+	bool "classic"
+	depends on THEME_CLASSIC
+config THEME_DEFAULT_MINIMAL
+	bool "minimal"
+	depends on THEME_MINIMAL
+config THEME_DEFAULT_TERMINAL
+	bool "terminal"
+	depends on THEME_TERMINAL
+config THEME_DEFAULT_CUSTOM
+	bool "custom"
+	depends on THEME_CUSTOM
+
+endchoice
+
+config THEME_DEFAULT
+	string
+	default "midnight" if THEME_DEFAULT_MIDNIGHT
+	default "classic" if THEME_DEFAULT_CLASSIC
+	default "minimal" if THEME_DEFAULT_MINIMAL
+	default "terminal" if THEME_DEFAULT_TERMINAL
+	default "custom" if THEME_DEFAULT_CUSTOM
+
+if THEME_CUSTOM
+
+comment "The custom theme's parts"
+
+choice
+	prompt "Icons"
+	default THEME_ICONS_FLAT
+
+config THEME_ICONS_FLAT
+	bool "flat (4-bit color)"
+config THEME_ICONS_LINE
+	bool "line (1-bit outline)"
+
+endchoice
+
+config THEME_ICONS
+	string
+	default "flat" if THEME_ICONS_FLAT
+	default "line" if THEME_ICONS_LINE
+
+choice
+	prompt "Colors (base palette)"
+	default THEME_COLORS_MIDNIGHT
+
+config THEME_COLORS_MIDNIGHT
+	bool "midnight"
+config THEME_COLORS_CLASSIC
+	bool "classic"
+config THEME_COLORS_LIGHT
+	bool "light"
+config THEME_COLORS_TERMINAL
+	bool "terminal"
+
+endchoice
+
+config THEME_COLORS
+	string
+	default "midnight" if THEME_COLORS_MIDNIGHT
+	default "classic" if THEME_COLORS_CLASSIC
+	default "light" if THEME_COLORS_LIGHT
+	default "terminal" if THEME_COLORS_TERMINAL
+
+menu "Custom colors (#RRGGBB; empty = the base palette's)"
+
+config THEME_COLOR_PANEL
+	string "panel: text background (character cells)"
+	default ""
+
+config THEME_COLOR_TEXT
+	string "text: item names"
+	default ""
+
+config THEME_COLOR_TEXT_DIM
+	string "text_dim: hints, inactive text"
+	default ""
+
+config THEME_COLOR_TEXT_SEL
+	string "text_sel: the selected item's text"
+	default ""
+
+config THEME_COLOR_TITLE
+	string "title: page title"
+	default ""
+
+config THEME_COLOR_VALUE
+	string "value: item values"
+	default ""
+
+config THEME_COLOR_ICON_MAIN
+	string "icon_main: icons: main"
+	default ""
+
+config THEME_COLOR_ICON_ACCENT
+	string "icon_accent: icons: accent"
+	default ""
+
+config THEME_COLOR_ICON_SHADE
+	string "icon_shade: icons: shade"
+	default ""
+
+config THEME_COLOR_ICON_HI
+	string "icon_hi: icons: highlight"
+	default ""
+
+config THEME_COLOR_ICON_SEL
+	string "icon_sel: 1-bit icons: the selected category"
+	default ""
+
+config THEME_COLOR_SLIDER
+	string "slider: the adjustment slider (empty in the palette too: sel_fill)"
+	default ""
+
+config THEME_COLOR_PANEL_FILL
+	string "panel_fill: menu body"
+	default ""
+
+config THEME_COLOR_HEADER_FILL
+	string "header_fill: header band (gradient start)"
+	default ""
+
+config THEME_COLOR_HEADER_FILL2
+	string "header_fill2: header gradient end"
+	default ""
+
+config THEME_COLOR_BORDER
+	string "border: outer border / 3D light edge"
+	default ""
+
+config THEME_COLOR_BORDER_DARK
+	string "border_dark: 3D dark edge"
+	default ""
+
+config THEME_COLOR_SHADOW
+	string "shadow: drop shadow"
+	default ""
+
+config THEME_COLOR_DIVIDER
+	string "divider: divider lines"
+	default ""
+
+config THEME_COLOR_SEL_FILL
+	string "sel_fill: selection bar"
+	default ""
+
+config THEME_COLOR_SEL_BORDER
+	string "sel_border: selection outline / icon frame"
+	default ""
+
+config THEME_COLOR_FOOTER_FILL
+	string "footer_fill: footer / icon strip"
+	default ""
+
+endmenu
+
+choice
+	prompt "Layout"
+	default THEME_LAYOUT_VERTICAL
+
+config THEME_LAYOUT_HORIZONTAL
+	bool "horizontal (icons in a row above the items)"
+config THEME_LAYOUT_VERTICAL
+	bool "vertical (icon sidebar)"
+
+endchoice
+
+config THEME_LAYOUT
+	string
+	default "horizontal" if THEME_LAYOUT_HORIZONTAL
+	default "vertical" if THEME_LAYOUT_VERTICAL
+
+choice
+	prompt "Frame"
+	default THEME_FRAME_ROUNDED
+
+config THEME_FRAME_FLAT
+	bool "flat"
+config THEME_FRAME_BEVEL
+	bool "bevel"
+config THEME_FRAME_OUTLINE
+	bool "outline"
+config THEME_FRAME_SHADOW
+	bool "shadow"
+config THEME_FRAME_DOUBLE
+	bool "double"
+config THEME_FRAME_ROUNDED
+	bool "rounded"
+
+endchoice
+
+config THEME_FRAME
+	string
+	default "flat" if THEME_FRAME_FLAT
+	default "bevel" if THEME_FRAME_BEVEL
+	default "outline" if THEME_FRAME_OUTLINE
+	default "shadow" if THEME_FRAME_SHADOW
+	default "double" if THEME_FRAME_DOUBLE
+	default "rounded" if THEME_FRAME_ROUNDED
+
+choice
+	prompt "Font"
+	default THEME_FONT_DEJAVU_BOLD
+
+config THEME_FONT_DEJAVU_BOLD
+	bool "dejavu-bold"
+config THEME_FONT_DEJAVU
+	bool "dejavu"
+config THEME_FONT_INTER
+	bool "inter"
+config THEME_FONT_MONO
+	bool "mono (fixed 12-px cells)"
+
+endchoice
+
+config THEME_FONT
+	string
+	default "dejavu-bold" if THEME_FONT_DEJAVU_BOLD
+	default "dejavu" if THEME_FONT_DEJAVU
+	default "inter" if THEME_FONT_INTER
+	default "mono" if THEME_FONT_MONO
+
+endif
+
+endmenu
+
+menu "Languages"
+
+comment "English is always built in: every other language falls back to it"
+
+config LANG_DE
+	bool "Deutsch"
+	default y
+
+config LANG_FR
+	bool "Francais"
+	default y
+
+config LANG_ES
+	bool "Espanol"
+	default y
+
+config LANG_IT
+	bool "Italiano"
+	default y
+
+choice
+	prompt "Default menu language"
+	default LANG_DEFAULT_EN
+
+config LANG_DEFAULT_EN
+	bool "English"
+config LANG_DEFAULT_DE
+	bool "Deutsch"
+	depends on LANG_DE
+config LANG_DEFAULT_FR
+	bool "Francais"
+	depends on LANG_FR
+config LANG_DEFAULT_ES
+	bool "Espanol"
+	depends on LANG_ES
+config LANG_DEFAULT_IT
+	bool "Italiano"
+	depends on LANG_IT
+
+endchoice
+
+config LANG_DEFAULT
+	string
+	default "de" if LANG_DEFAULT_DE
+	default "fr" if LANG_DEFAULT_FR
+	default "es" if LANG_DEFAULT_ES
+	default "it" if LANG_DEFAULT_IT
+	default "en"
+
+endmenu
+
+menu "Features"
+
+config FEATURE_PICTURE_MODES
+	bool "Picture modes (Standard / Movie / Game / Text presets, MCCS DCh)"
+	default y
+
+config FEATURE_DCR
+	bool "Dynamic contrast (backlight follows the picture, MCCS EAh)"
+	default y
+
+config FEATURE_LOW_BLUE
+	bool "Low blue light filter (MCCS E6h)"
+	default y
+
+config FEATURE_USER_GAINS
+	bool "User color temperature: R/G/B gains (MCCS 16h/18h/1Ah)"
+	default y
+
+endmenu
+
+menu "Debug"
+
+config DEBUG_VCP
+	bool "DDC/CI debug codes (register peek/poke, flash test, bring-up hooks)"
+	default y
+	help
+	  The manufacturer-range VCP codes the firmware is developed with,
+	  none of them in the capabilities string: F0h/F1h register peek and
+	  FCh poke, F2h/FBh/FDh indirect-port access, F3h/F4h scratch-sector
+	  flash test, F5h/F6h settings-store state, F7h stack high-water mark
+	  and reboot, F8h/F9h/FAh capture diagnostics and overrides, ECh-EFh
+	  OSD SRAM / LUT pokes, FEh/FFh staged audio / DP bring-up, and the
+	  log of the last Set VCPs.
+
+config DEBUG_CONSOLE
+	bool "Debug console (on-screen status page)"
+	default y
+	help
+	  A third UI mode next to the boot logo and the input: live loop,
+	  timebase, DDC/CI, display-clock, capture and link status over a red
+	  background.  Reached from the menu (OSD > Debug console) or with
+	  DDC/CI E7h = 2; any key returns to the picture.
+
+endmenu
+
+menu "Default settings"
+
+comment "What a new board and a factory reset start from"
+
+config DEFAULT_BOOT_LOGO
+	bool "Show the boot logo"
+	default y
+
+config DEFAULT_MENU_2X
+	bool "Menu size 2x"
+
+config DEFAULT_SLIDER_POPUP
+	bool "Edit values in a popup (else the slider replaces the item's value)"
+
+endmenu

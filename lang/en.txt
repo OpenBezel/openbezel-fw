@@ -1,0 +1,117 @@
+# English - the reference language: it defines every string the firmware uses
+# (tools/gen_lang.py turns each KEY into S_KEY).  The other languages translate
+# what they like; a key they leave out shows in English.
+#
+# Length limits, in characters (the menu lays text out on a 40-column grid, one
+# character per column, then draws it proportionally) - gen_lang.py checks them:
+#   T_  page titles / categories  13     I_  item names         16
+#   V_  values                    13     N_  numeric values     13
+#   IL_ Information-page labels   12     IV_ Information values 17
+#   MSG_ popup lines              30     HINT the footer, also by pixel width
+@mccs = 02
+LANG_NAME = English
+
+T_SETTINGS = Settings
+T_PICTURE = Picture
+T_AUDIO = Audio
+T_DISPLAY = Display
+T_OSD = OSD
+T_SYSTEM = System
+T_INFO = Information
+T_EXIT = Exit
+
+I_PICMODE = Picture mode
+I_BRIGHTNESS = Brightness
+I_CONTRAST = Contrast
+I_CTEMP = Color temp
+I_RGAIN = Red gain
+I_GGAIN = Green gain
+I_BGAIN = Blue gain
+I_LOWBLUE = Low blue
+I_SATURATION = Saturation
+I_SHARPNESS = Sharpness
+I_GAMMA = Gamma
+I_BACK = Back
+I_INPUT = Input
+I_IDITHER = Input dither
+I_DDITHER = Disp dither
+I_SCALING = Scaling
+I_WDBLANK = WD blank
+I_MODEPOPUP = Mode popup
+I_LANGUAGE = Language
+I_MENUTIME = Menu time
+I_THEME = Theme
+I_MENUSIZE = Menu size
+I_SLIDER = Slider
+I_HPOS = H position
+I_VPOS = V position
+I_DEBUG = Debug console
+I_RESET = Reset all
+I_VOLUME = Volume
+I_MUTE = Mute
+I_BOOTLOGO = Boot logo
+I_BACKLIGHT = Backlight
+I_BLLEVEL = BL level
+I_DCR = Dynamic contrast
+I_POWERSAVE = Powersave
+I_KEYREPEAT = Key repeat
+I_DDCCI = DDC/CI
+
+V_ON = On
+V_OFF = Off
+V_COOL = Cool
+V_NORMAL = Normal
+V_WARM = Warm
+V_USER = User
+V_CUSTOM = Custom
+V_STANDARD = Standard
+V_MOVIE = Movie
+V_GAME = Game
+V_TEXT = Text
+V_FULL = Full
+V_FIT = Fit
+V_SLOW = Slow
+V_FAST = Fast
+V_AUTO = Auto
+V_PREF_HDMI = Prefer HDMI
+V_PREF_USBC = Prefer USB-C
+V_HDMI = HDMI
+V_USBC = USB-C
+V_INROW = In row
+V_POPUP = Popup
+V_CONFIRM = ENTER again
+V_LOW = Low
+V_MEDIUM = Medium
+V_HIGH = High
+V_THEME_MIDNIGHT = Midnight
+V_THEME_CLASSIC = Classic
+V_THEME_MINIMAL = Minimal
+V_THEME_TERMINAL = Terminal
+V_THEME_CUSTOM = Custom
+
+N_GAMMA18 = 1.8
+N_GAMMA20 = 2.0
+N_GAMMA22 = 2.2
+N_GAMMA24 = 2.4
+N_5S = 5 s
+N_10S = 10 s
+N_30S = 30 s
+N_60S = 60 s
+N_2MIN = 2 min
+N_1X = 1x
+N_2X = 2x
+
+IL_INPUT = Input
+IL_MODE = Mode
+IL_HFREQ = H frequency
+IL_CLOCK = Pixel clock
+IL_HDCP = HDCP
+IL_FIRMWARE = Firmware
+IL_THEME = Theme
+IL_USAGE = Usage
+IV_NOSIGNAL = (no signal)
+
+MSG_NOSIGNAL = No signal
+MSG_INPUT = Input:
+
+HINT = UP/DN move   ENTER ok   PWR exit

@@ -1,0 +1,23 @@
+{
+ "description": "Filled multi-color icons, 4-bit glyphs",
+ "bpp": 4,
+ "cells": [3, 2],
+ "roles": {
+  "#FF0000": "icon_main",
+  "#00FF00": "icon_accent",
+  "#0000FF": "icon_shade",
+  "#FFFF00": "icon_hi"
+ },
+ "icons": [
+  "picture",
+  "audio",
+  "display",
+  "osd",
+  "system",
+  "info",
+  "exit",
+  "hdmi",
+  "usbc",
+  "nosignal"
+ ]
+}
